@@ -1,6 +1,6 @@
 --Loyalty of Prophecy
 local s,id=GetID()
-function c1234567893.initial_effect(c)
+function s.initial_effect(c)
 	local e0=Effect.CreateEffect(c)
 		--Special Summon from hand
         e0:SetDescription(aux.Stringid(id,0))
