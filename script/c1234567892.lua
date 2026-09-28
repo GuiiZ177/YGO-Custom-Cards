@@ -1,13 +1,13 @@
 --Spellbook Librarian of Prophecy
 local s,id=GetID()
 function s.initial_effect(c)
-	c:SetSPSummonOnce(id)
 	-- Special Summon
 	local e0=Effect.CreateEffect(c)
 		e0:SetType(EFFECT_TYPE_FIELD)
 		e0:SetCode(EFFECT_SPSUMMON_PROC)
 		e0:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 		e0:SetRange(LOCATION_HAND)
+		e0:SetCountLimit(1,id,EFFECT_COUNT_CODE_OATH)
 		e0:SetCondition(s.spcon)
 	c:RegisterEffect(e0)
 	-- Add 1 "Prophecy" monster
