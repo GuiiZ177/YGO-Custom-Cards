@@ -1,7 +1,7 @@
 --Merlin, the Last Prophesser
 local s,id=GetID()
 
-function c1234567890.initial_effect(c)
+function s.initial_effect(c)
     c:SetUniqueOnField(1,0,id)
 	c:EnableReviveLimit()
 	--2+ monsters, including an "Prophecy" monster
