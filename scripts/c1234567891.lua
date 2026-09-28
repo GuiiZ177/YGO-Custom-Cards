@@ -1,6 +1,6 @@
 --Pretender Crowley
 local s,id=GetID()
-function c1234567891.initial_effect(c)
+function s.initial_effect(c)
     -- 1 "Prophecy" monster
     Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,{SET_PROPHECY}),1,1)
     -- Add 1 "Spelbook of Judgment" from your Deck or GY to your hand
