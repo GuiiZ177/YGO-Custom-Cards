@@ -1,6 +1,6 @@
 --Spellbook Librarian of Prophecy
 local s,id=GetID()
-function c1234567892.initial_effect(c)
+function s.initial_effect(c)
 	c:SetSPSummonOnce(id)
 	-- Special Summon
 	local e0=Effect.CreateEffect(c)
