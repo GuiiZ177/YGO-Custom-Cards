@@ -1,12 +1,13 @@
 --Merlin, the Last Prophesser
+--Scripted by GuiiZ
 local s,id=GetID()
 
 function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
 	c:EnableReviveLimit()
-	--2+ monsters, including an "Prophecy" monster
+	-- 2+ monsters, including an "Prophecy" monster
 	Link.AddProcedure(c,nil,2,4,s.lcheck)
-	--Increase ATK
+	-- Increase ATK
 	local e0=Effect.CreateEffect(c)
 		e0:SetType(EFFECT_TYPE_FIELD)
 		e0:SetCode(EFFECT_UPDATE_ATTACK)
@@ -15,7 +16,7 @@ function s.initial_effect(c)
 		e0:SetTarget(function(e,c) return c:IsSetCard(SET_PROPHECY) end)
 		e0:SetValue(s.atkval)
 	c:RegisterEffect(e0)
-	--Banish 1 Spellbook, send a card to GY
+	-- Banish 1 Spellbook, send a card to GY
 	local e1=Effect.CreateEffect(c)
 		e1:SetDescription(aux.Stringid(id,1))
 		e1:SetCategory(CATEGORY_TOGRAVE)
@@ -28,7 +29,7 @@ function s.initial_effect(c)
 		e1:SetTarget(s.efftg)
 		e1:SetOperation(s.effop)
 	c:RegisterEffect(e1)
-	--Place "The Grand Spellbook Tower" in your Field Zone
+	-- Place "The Grand Spellbook Tower" in your Field Zone
 	local e2=Effect.CreateEffect(c)
 		e2:SetDescription(aux.Stringid(id,2))
 		e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
@@ -44,18 +45,21 @@ end
 s.listed_series={SET_SPELLBOOK,SET_PROPHECY}
 s.listed_names={33981008}
 
---Effect 1
+-- Link Procedure
 function s.lcheck(g,lc,sumtype,tp)
 	return g:IsExists(Card.IsSetCard,1,nil,SET_PROPHECY,lc,sumtype,tp)
 end
+
+-- Effect 1
 function s.valfilter(c)
 	return c:IsSetCard(SET_SPELLBOOK) and c:IsSpell()
 end
 function s.atkval(e,c)
-	return Duel.GetMatchingGroupCount(s.valfilter,c:GetControler(),LOCATION_GRAVE,0,nil)*200
+	local g=Duel.GetMatchingGroup(s.valfilter,c:GetControler(),LOCATION_GRAVE,0,nil)
+	return g:GetClassCount(Card.GetCode)*100
 end
 
---Effect 2
+-- Effect 2
 function s.cfilter(c)
 	return c:IsSetCard(SET_SPELLBOOK) and c:IsSpell() and c:IsAbleToRemoveAsCost()
 end
@@ -91,7 +95,7 @@ function s.effop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
---Effect 3
+-- Effect 3
 function s.plfilter(c)
 	return c:IsCode(33981008)
 end
