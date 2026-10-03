@@ -61,7 +61,7 @@ function s.mfilter(c)
 end
 
 function s.efftg(e,tp,eg,ep,ev,re,r,rp,chk)
-	local b1=Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK|LOCATION_GRAVE,0,1,nil)
+	local b1=Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil)
 	local b2=Duel.IsExistingMatchingCard(s.costfilter,tp,LOCATION_HAND|LOCATION_GRAVE,0,1,nil) 
 	and Duel.IsExistingMatchingCard(s.mfilter,tp,0,LOCATION_MZONE,1,nil)
 	if chk==0 then
@@ -81,8 +81,8 @@ function s.efftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(op)
 
 	if op==0 then
-		e:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
-		Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK|LOCATION_GRAVE)
+		e:SetCategory(CATEGORY_TOGRAVE)
+		Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
 	else
 		-- Banish 1 "Spellbook" Spell
 		e:SetCategory(CATEGORY_DESTROY)
@@ -96,10 +96,10 @@ end
 function s.effop(e,tp,eg,ep,ev,re,r,rp)
 	local op=e:GetLabel()
 	if op==0 then
-		-- Add 1 "Prophecy" Monster from your Deck or GY
-		local g=Duel.SelectMatchingCard(tp,s.thfilter,tp,LOCATION_DECK|LOCATION_GRAVE,0,1,1,nil)
+		-- Send 1 "Prophecy" Monster from your Deck to the GY
+		local g=Duel.SelectMatchingCard(tp,s.thfilter,tp,LOCATION_DECK,0,1,1,nil)
 		if #g>0 then
-			Duel.SendtoHand(g,nil,REASON_EFFECT)
+			Duel.SendtoGrave(g,REASON_EFFECT)
 		end
 	else
 		-- Find the opponent's monster with the lowest ATK
